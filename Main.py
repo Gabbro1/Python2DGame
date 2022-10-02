@@ -16,7 +16,7 @@ color = red
   
 # Changing surface color
 window.fill(color)
-pygame.display.flip()
+pygame.display.update()
 
 running = True
 
