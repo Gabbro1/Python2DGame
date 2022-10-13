@@ -1,92 +1,81 @@
-import pygame, sys, time, random, colorsys, math
+# Importing pygame module
+import pygame
+from pygame.locals import *
 
-
-
-
-
-
-
-red = (250, 0, 0)
-
-
-
-# class Player:
-#     def __init__(self,vel,x,y):
-#         self.vel = vel
-#         self.vel_y = 16
-#         self.x = x
-#         self.y = y
-#         self.jump = False
-
-#     def move(self):
-#         k = pygame.key.get_pressed()
-#         if k[pygame.K_LEFT]:
-#             self.x -= self.vel
-#         if k[pygame.K_RIGHT]:
-#             self.x += self.vel
-#         if k[pygame.K_UP] and self.vel_y == 16:
-#             self.jump = True
-#         if self.jump:
-#             pass
-#             if self.vel_y >= -16:
-#                 self.y -= self.vel_y
-#                 self.vel_y -= 1
-#             else:
-#                 self.jump = False
-#                 self.vel_y = 16
-
-#     def draw(self):
-#         pygame.draw.rect(screen,(255,255,255),(self.x,self.y,50,100))
-
-#     def do(self):
-#         self.move()
-#         self.draw()
-
-
-
-#Initialize the window
+# initiate pygame and give permission
+# to use pygame's functionality.
 pygame.init()
 
-#Create a screen
-window = pygame.display.set_mode((800, 600))
+# create the display surface object
+# of specific dimension.
+window = pygame.display.set_mode((600, 600))
 
-pygame.display.set_caption("PLACEHOLDER")
+# Add caption in the window
+pygame.display.set_caption('Player Movement')
 
-#player
-playerImg = pygame.image.load('images/playerProt.png')
-playerPosX = 25
-playerPosY = 550
+# Initializing the clock
+# Clocks are used to track and
+# control the frame-rate of a game
+clock = pygame.time.Clock()
 
-def player(PosX, PosY):
-    window.blit(playerImg, (PosX, PosY))
-     
+# creating a variable to check the direction
+# of movement
+# We will change its value whenever
+# the player changes its direction
+direction = True
 
 
-color = red
+image = pygame.image.load('images/player.png')
 
-# Changing surface color
-window.fill(color)
-pygame.display.update()
 
-running = True
+x = 100
+y = 100
 
-#Game Loop
-while running:
 
-    window.fill((250, 250, 250))
+velocity = 12
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False   
-        if event.type==pygame.KEYDOWN and event.key== pygame.K_w:
-            playerPosY -= 10
-        if event.type==pygame.KEYDOWN and event.key== pygame.K_a:
-            playerPosX -= 10
-        if event.type==pygame.KEYDOWN and event.key== pygame.K_s:
-            playerPosY += 10
-        if event.type==pygame.KEYDOWN and event.key== pygame.K_d:
-            playerPosX += 10   
-       
+# 
+run = True
+while run:
 
-    player(playerPosX, playerPosY)
-    pygame.display.update()
+	# FPS = 60
+	clock.tick(60)
+
+	# Hintergrund weiß gemacht
+	window.fill((255, 255, 255))
+
+	#spieler wird auf den passenden Kordinaten displayed
+	if direction == True:
+		window.blit(image, (x, y))
+        #sprite wird gedreht
+	if direction == False:
+		window.blit(pygame.transform.flip(image, True, False), (x, y))
+
+
+	for event in pygame.event.get():
+
+
+		if event.type == pygame.QUIT:
+			run = False
+			pygame.quit()
+			quit()
+
+		if event.type == pygame.KEYDOWN:
+			if event.key == pygame.K_RIGHT:
+				direction = True
+			elif event.key == pygame.K_LEFT:
+				direction = False
+
+	key_pressed_is = pygame.key.get_pressed()
+
+	# Koordinaten update
+	if key_pressed_is[K_LEFT]:
+		x -= 5
+	if key_pressed_is[K_RIGHT]:
+		x += 5
+	if key_pressed_is[K_UP]:
+		y -= 5
+	if key_pressed_is[K_DOWN]:
+		y += 5
+
+	pygame.display.update()
