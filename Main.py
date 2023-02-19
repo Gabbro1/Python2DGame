@@ -8,9 +8,9 @@ pygame.init()
 
 # create the display surface object
 # of specific dimension.
-window = pygame.display.set_mode((600, 600))
+#window = pygame.display.set_mode()
+window = pygame.display.set_mode((800, 600))
 
-# Add caption in the window
 pygame.display.set_caption('Player Movement')
 
 # Initializing the clock
@@ -61,21 +61,21 @@ while run:
 			quit()
 
 		if event.type == pygame.KEYDOWN:
-			if event.key == pygame.K_RIGHT:
+			if event.key == pygame.K_a:
 				direction = True
-			elif event.key == pygame.K_LEFT:
+			elif event.key == pygame.K_d:
 				direction = False
 
 	key_pressed_is = pygame.key.get_pressed()
 
 	# Koordinaten update
-	if key_pressed_is[K_LEFT]:
+	if key_pressed_is[K_a]:
 		x -= 5
-	if key_pressed_is[K_RIGHT]:
+	if key_pressed_is[K_d]: 
 		x += 5
-	if key_pressed_is[K_UP]:
+	if key_pressed_is[K_w]:
 		y -= 5
-	if key_pressed_is[K_DOWN]:
+	if key_pressed_is[K_s]:
 		y += 5
 
 	pygame.display.update()
